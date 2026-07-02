@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanX - Planejamento Financeiro Pessoal</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" role="live" aria-live="polite"></div>
+
+    <button class="btn-top" id="btnTop" aria-label="Voltar ao topo da página">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="#inicio" class="logo" aria-label="FinanX Home">
+                <i class="fas fa-wallet" aria-hidden="true"></i>
+                <span>Finan<span class="logo-highlight">X</span></span>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="#inicio" class="nav-link active"><i class="fas fa-home"></i> Início</a>
+                <a href="#simulador" class="nav-link"><i class="fas fa-calculator"></i> Simulador</a>
+                <a href="#dashboard" class="nav-link"><i class="fas fa-chart-pie"></i> Painel</a>
+                <a href="#educacao" class="nav-link"><i class="fas fa-book-reader"></i> Educação</a>
+                <a href="#contato" class="nav-link"><i class="fas fa-envelope"></i> Contato</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema de cor">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navMenu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero-section" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Domine Suas Finanças com Inteligência</h1>
+                <p>Planeje suas metas, controle seus gastos dinamicamente e visualize o seu crescimento financeiro em uma plataforma moderna inspirada no ecossistema das grandes fintechs.</p>
+                <div class="hero-buttons">
+                    <a href="#simulador" class="btn btn-primary">Começar Agora <i class="fas fa-chevron-right"></i></a>
+                    <a href="#educacao" class="btn btn-secondary">Saiba Mais <i class="fas fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <div class="hero-floating-card">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4>Segurança Total</h4>
+                        <p>Dados salvos localmente.</p>
+                    </div>
+                </div>
+                <div class="hero-graphic-mock">
+                    <div class="mock-line"></div>
+                    <div class="mock-line short"></div>
+                    <div class="mock-circle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="simulador">
+        <div class="section-header">
+            <h2><i class="fas fa-sliders-h"></i> Simulador Financeiro</h2>
+            <p>Insira suas informações bases para projetar o atingimento de seus objetivos.</p>
+        </div>
+
+        <div class="simulator-grid">
+            <div class="card card-form">
+                <form id="financeForm" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="monthlyIncome"><i class="fas fa-money-bill-wave text-success"></i> Receita Mensal (R$)</label>
+                        <input type="number" id="monthlyIncome" min="0" step="0.01" placeholder="Ex: 5000.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="financialGoal"><i class="fas fa-bullseye text-primary"></i> Meta Financeira Alvo (R$)</label>
+                        <input type="number" id="financialGoal" min="0" step="0.01" placeholder="Ex: 20000.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeHorizon"><i class="fas fa-calendar-alt text-warning"></i> Prazo Estimado (Meses)</label>
+                        <input type="number" id="timeHorizon" min="1" placeholder="Ex: 12" required>
+                    </div>
+
+                    <div class="expense-section">
+                        <h3><i class="fas fa-list"></i> Adicionar Despesas Mensais</h3>
+                        <div class="expense-inputs">
+                            <div class="form-group flex-1">
+                                <label for="expenseName">Descrição</label>
+                                <input type="text" id="expenseName" placeholder="Ex: Aluguel">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label for="expenseValue">Valor (R$)</label>
+                                <input type="number" id="expenseValue" min="0" step="0.01" placeholder="Ex: 1200.00">
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-add" id="btnAddExpense" aria-label="Adicionar despesa à lista">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+
+                        <div class="expense-list-container">
+                            <ul class="expense-list" id="expenseList" role="list">
+                                </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="btnCalculate"><i class="fas fa-calculator"></i> Calcular</button>
+                        <button type="button" class="btn btn-secondary" id="btnDemo"><i class="fas fa-magic"></i> Preencher Exemplo</button>
+                        <button type="button" class="btn btn-danger" id="btnClear"><i class="fas fa-trash-alt"></i> Limpar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card card-results">
+                <h3><i class="fas fa-table"></i> Tabela Analítica de Projeção</h3>
+                <div class="table-responsive">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Mês</th>
+                                <th>Economia Mensal</th>
+                                <th>Saldo Acumulado</th>
+                                <th>Status da Meta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableResultsBody">
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">Aguardando cálculo para projeção de dados estruturados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="dashboard">
+        <div class="section-header">
+            <h2><i class="fas fa-chart-line"></i> Painel Gerencial & Métricas</h2>
+            <p>Monitore os indicadores calculados a partir de suas projeções e metas configuradas.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card metric-card border-success">
+                <div class="metric-icon bg-success"><i class="fas fa-arrow-up"></i></div>
+                <div class="metric-info">
+                    <span class="metric-label">Receita Total</span>
+                    <h3 class="metric-value counter" id="lblIncome">R$ 0,00</h3>
+                </div>
+            </div>
+
+            <div class="card metric-card border-danger">
+                <div class="metric-icon bg-danger"><i class="fas fa-arrow-down"></i></div>
+                <div class="metric-info">
+                    <span class="metric-label">Despesas Totais</span>
+                    <h3 class="metric-value counter" id="lblExpenses">R$ 0,00</h3>
+                </div>
+            </div>
+
+            <div class="card metric-card border-info">
+                <div class="metric-icon bg-info"><i class="fas fa-scale-balanced"></i></div>
+                <div class="metric-info">
+                    <span class="metric-label">Saldo Disponível</span>
+                    <h3 class="metric-value counter" id="lblBalance">R$ 0,00</h3>
+                </div>
+            </div>
+
+            <div class="card metric-card border-primary">
+                <div class="metric-icon bg-primary"><i class="fas fa-bullseye"></i></div>
+                <div class="metric-info">
+                    <span class="metric-label">Meta Alvo</span>
+                    <h3 class="metric-value counter" id="lblGoal">R$ 0,00</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid margin-top-md">
+            <div class="card metric-card">
+                <div class="metric-info">
+                    <span class="metric-label">Economia Necessária / Mês</span>
+                    <h3 class="metric-value text-cyan" id="lblRequiredEconomy">R$ 0,00</h3>
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-info">
+                    <span class="metric-label">Economia Real Atual / Mês</span>
+                    <h3 class="metric-value text-cyan" id="lblActualEconomy">R$ 0,00</h3>
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-info">
+                    <span class="metric-label">Prazo Definido</span>
+                    <h3 class="metric-value text-cyan" id="lblDeadline">0 Meses</h3>
+                </div>
+            </div>
+            <div class="card metric-card">
+                <div class="metric-info">
+                    <span class="metric-label">% Conquistado da Meta</span>
+                    <h3 class="metric-value text-cyan" id="lblPercentage">0%</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card chart-card">
+                <h3><i class="fas fa-chart-bar"></i> Comparativo Volumétrico</h3>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <div class="card chart-card">
+                <h3><i class="fas fa-chart-pie"></i> Distribuição Percentual de Despesas</h3>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-actions card">
+            <h3><i class="fas fa-file-invoice-dollar"></i> Exportação e Ferramental do Relatório</h3>
+            <p>Gere e salve os seus dados para consumo offline em formatos interoperáveis profissionais.</p>
+            <div class="action-buttons">
+                <button type="button" class="btn btn-secondary" id="btnExportPDF"><i class="fas fa-file-pdf text-danger"></i> Exportar para PDF</button>
+                <button type="button" class="btn btn-secondary" id="btnExportExcel"><i class="fas fa-file-excel text-success"></i> Exportar para Excel</button>
+                <button type="button" class="btn btn-secondary" id="btnPrint"><i class="fas fa-print text-primary"></i> Imprimir Relatório</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="educacao">
+        <div class="section-header">
+            <h2><i class="fas fa-graduation-cap"></i> Portal de Educação Financeira</h2>
+            <p>Construa a base conceitual necessária para otimizar suas tomadas de decisões financeiras.</p>
+        </div>
+
+        <div class="education-grid">
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-compass"></i></div>
+                <h3>O que é Planejamento?</h3>
+                <p>É o processo estruturado de mapear suas receitas, custos e despesas para traçar caminhos previsíveis até os seus objetivos de curto, médio e longo prazo.</p>
+            </div>
+
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-filter"></i></div>
+                <h3>Como Controlar Gastos</h3>
+                <p>Categorize cada centavo consumido. Evite saídas invisíveis automatizando registros e revisando periodicamente faturas corporativas e extratos bancários.</p>
+            </div>
+
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-piggy-bank"></i></div>
+                <h3>Como Economizar Eficazmente</h3>
+                <p>Pague-se primeiro. Separe o aporte de investimento imediatamente ao receber seu salário, operando o restante do mês baseado estritamente no saldo líquido remanescente.</p>
+            </div>
+
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-kit-medical"></i></div>
+                <h3>Reserva de Emergência</h3>
+                <p>Patrimônio de alta liquidez correspondente a um período de 6 a 12 meses do seu custo de vida total. Destinado a cobrir imprevistos de saúde ou desemprego temporário.</p>
+            </div>
+
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Juros Compostos</h3>
+                <p>A força mais poderosa do mercado financeiro. São juros aplicados sobre juros acumulados estruturando um crescimento exponencial do patrimônio ao longo do tempo.</p>
+            </div>
+
+            <div class="card edu-card">
+                <div class="edu-icon"><i class="fas fa-pie-chart"></i></div>
+                <h3>Regra dos 50/30/20</h3>
+                <p>Metodologia de divisão orçamentária direta: destine 50% dos recursos para necessidades essenciais, 30% para desejos pessoais/estilo de vida e 20% para investimentos/poupança.</p>
+            </div>
+        </div>
+
+        <div class="faq-container card">
+            <h3 class="text-center"><i class="fas fa-question-circle"></i> Perguntas Frequentes (FAQ)</h3>
+            
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Qual o primeiro passo para começar a investir?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>O primeiro passo absoluto é a quitação de dívidas com juros altos (como cartão de crédito e cheque especial) concomitante com a estruturação da sua Reserva de Emergência em ativos pós-fixados seguros.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Onde devo alocar minha Reserva de Emergência?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Em investimentos de baixo risco regulatório e liquidez imediata (D+0). Bons exemplos incluem contas digitais rendendo 100% do CDI, Tesouro Selic ou fundos de renda fixa DI com taxa zero.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span>Como diferenciar um gasto essencial de um supérfluo?</span>
+                    <div class="fas fa-chevron-down"></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Gastos essenciais são aqueles vitais para sua subsistência e manutenção profissional basilar (moradia, alimentação básica, saúde, transporte essencial). Se a remoção do item não impede sua subsistência direta, enquadra-se como supérfluo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="contato">
+        <div class="section-header">
+            <h2><i class="fas fa-envelope-open-text"></i> Canais de Atendimento & Suporte</h2>
+            <p>Envie suas dúvidas institucionais ou feedback para nossa equipe de desenvolvimento acadêmico.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="card">
+                <form id="contactForm" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="contactName">Nome Completo</label>
+                        <input type="text" id="contactName" placeholder="Ex: João Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">E-mail Corporativo</label>
+                        <input type="email" id="contactEmail" placeholder="Ex: joao@empresa.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Mensagem / Relato</label>
+                        <textarea id="contactMessage" rows="5" placeholder="Digite sua mensagem detalhadamente..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Enviar Mensagem <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+            <div class="card contact-info-card">
+                <h3>Informações de Contato</h3>
+                <p>Nossa central de monitoramento opera de forma descentralizada para suporte ao projeto de Planejamento Financeiro.</p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt text-cyan"></i>
+                    <span>Av. Paulista, 1000 - Bela Vista, São Paulo - SP</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone text-cyan"></i>
+                    <span>0800 700 4040</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope text-cyan"></i>
+                    <span>suporte@finanxprojeto.com.br</span>
+                </div>
+
+                <div class="mock-map" aria-label="Mapa Ilustrativo de Localização">
+                    <div class="map-pin"><i class="fas fa-map-pin"></i></div>
+                    <span class="map-text">Sede FinanX Acadêmico</span>
+                </div>
+
+                <div class="social-networks">
+                    <a href="#" aria-label="Acessar Linkedin institucional"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Acessar Github institucional"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Acessar Instagram institucional"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 FinanX S.A. Desenvolvimento Acadêmico. Todos os direitos reservados. Projeto em Conformidade de Acessibilidade Web.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
