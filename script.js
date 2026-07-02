@@ -126,9 +126,10 @@ const AppCore = {
         this.backToTop.addEventListener("click", () => window.scrollTo({top:0, behavior:'smooth'}));
 
         // Aplicação do Efeito Ripple em todos os elementos elegíveis
-        document.querySelectorAll(".ripple").forEach(button => {
-            button.addEventListener("click", function(e) {
-                let x = e.clientX - e.target.getBoundingClientRect().left;
+document.querySelectorAll(".ripple").forEach(button => {
+    button.addEventListener("click", (e) => {
+        let rect = button.getBoundingClientRect();
+        let x = e.clientX - rect.left;
                 let y = e.clientY - e.target.getBoundingClientRect().top;
                 let ripples = document.createElement("span");
                 ripples.classList.add("ripple-effect");
@@ -313,10 +314,10 @@ const AppCore = {
         const increment = valorFinal / (duration / stepTime);
         
         // Evita animação infinita ou travamentos caso valor seja zero/negativo
-        if (valorFinal <= 0 || isNaN(increment)) {
-            el.textContent = `R$ ${valorFinal.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2})}`;
-            return;
-        }
+       if (valorFinal === 0 || isNaN(increment) || !isFinite(increment)) {
+    el.textContent = `R$ ${valorFinal.toLocaleString('pt-BR', {minimumFractionDigits:2})}`;
+    return;
+}
 
         const timer = setInterval(() => {
             start += increment;
@@ -380,9 +381,8 @@ const AppCore = {
     /* ==========================================================================
        CONSTRUÇÃO E ATUALIZAÇÃO DE GRÁFICOS (CHART.JS)
        ========================================================================== */
-    atualizarGraficos(receita = this.state.receita, despesas = 0, saldo = 0) {
-        if (despesas === 0) {
-            despesas = this.state.despesas.reduce((acc, curr) => acc + curr.valor, 0);
+atualizarGraficos(receita = this.state.receita, despesas = null, saldo = null) {
+    if (despesas === null) {despesas = this.state.despesas.reduce((acc, curr) => acc + curr.valor, 0);
             saldo = receita - despesas;
         }
 
@@ -542,10 +542,15 @@ const AppCore = {
                 if(this.state.prazo > 0) this.inputPrazo.value = this.state.prazo;
 
                 this.state.despesas.forEach(d => this.renderizarItemDespesaUI(d));
-                
-                if(this.state.receita > 0) {
-                    this.executarCalculosFinanceiros();
-                }
+            
+if(this.state.receita > 0) {
+    const despesasTotais = this.state.despesas.reduce((acc, curr) => acc + curr.valor, 0);
+    const saldoMensal = this.state.receita - despesasTotais;
+    
+    this.dashboardSection.classList.remove("hidden");
+    this.atualizarGraficos(this.state.receita, despesasTotais, saldoMensal);
+    this.gerarTabelaResumo(this.state.receita, despesasTotais, saldoMensal, (this.state.meta / this.state.prazo), saldoMensal > 0 ? saldoMensal : 0);
+}
             } catch (e) {
                 console.error("Erro na restauração do LocalStorage corporativo", e);
             }
