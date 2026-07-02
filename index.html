@@ -81,17 +81,9 @@
                 <form id="financeForm" onsubmit="event.preventDefault();">
                     <div class="form-group">
                         <label for="monthlyIncome"><i class="fas fa-money-bill-wave text-success"></i> Receita Mensal (R$)</label>
-                        <input type="number" id="monthlyIncome" min="0" step="0.01" placeholder="Ex: 5000.00" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="financialGoal"><i class="fas fa-bullseye text-primary"></i> Meta Financeira Alvo (R$)</label>
-                        <input type="number" id="financialGoal" min="0" step="0.01" placeholder="Ex: 20000.00" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="timeHorizon"><i class="fas fa-calendar-alt text-warning"></i> Prazo Estimado (Meses)</label>
-                        <input type="number" id="timeHorizon" min="1" placeholder="Ex: 12" required>
+                       <input type="number" id="receitaMensal" min="0" step="0.01" placeholder="Ex: 5000.00" required>
+<input type="number" id="metaFinanceira" min="0" step="0.01" placeholder="Ex: 20000.00" required>
+<input type="number" id="prazoMeta" min="1" placeholder="Ex: 12" required>
                     </div>
 
                     <div class="expense-section">
@@ -99,27 +91,17 @@
                         <div class="expense-inputs">
                             <div class="form-group flex-1">
                                 <label for="expenseName">Descrição</label>
-                                <input type="text" id="expenseName" placeholder="Ex: Aluguel">
-                            </div>
-                            <div class="form-group flex-1">
-                                <label for="expenseValue">Valor (R$)</label>
-                                <input type="number" id="expenseValue" min="0" step="0.01" placeholder="Ex: 1200.00">
-                            </div>
-                            <button type="button" class="btn btn-secondary btn-add" id="btnAddExpense" aria-label="Adicionar despesa à lista">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-
-                        <div class="expense-list-container">
-                            <ul class="expense-list" id="expenseList" role="list">
-                                </ul>
+                               <input type="text" id="nomeDespesa" placeholder="Ex: Aluguel">
+<input type="number" id="valorDespesa" min="0" step="0.01" placeholder="Ex: 1200.00">
+<button type="button" id="btnAddDespesa" ...>
+<ul class="expense-list" id="listaDespesas" role="list"></ul>
                         </div>
                     </div>
 
                     <div class="form-actions">
-                        <button type="button" class="btn btn-primary" id="btnCalculate"><i class="fas fa-calculator"></i> Calcular</button>
-                        <button type="button" class="btn btn-secondary" id="btnDemo"><i class="fas fa-magic"></i> Preencher Exemplo</button>
-                        <button type="button" class="btn btn-danger" id="btnClear"><i class="fas fa-trash-alt"></i> Limpar</button>
+                       <button type="button" class="btn btn-primary" id="btnCalcular">Calcular</button>
+<button type="button" class="btn btn-secondary" id="btnExemplo">Preencher Exemplo</button>
+<button type="button" class="btn btn-danger" id="btnLimpar">Limpar</button>
                     </div>
                 </form>
             </div>
@@ -309,9 +291,8 @@
 
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false">
-                    <span>Como diferenciar um gasto essencial de um supérfluo?</span>
-                    <div class="fas fa-chevron-down"></div>
-                </button>
+    <span>Como diferenciar um gasto essencial de um supérfluo?</span>
+    <i class="fas fa-chevron-down"></i> </button>
                 <div class="faq-answer">
                     <p>Gastos essenciais são aqueles vitais para sua subsistência e manutenção profissional basilar (moradia, alimentação básica, saúde, transporte essencial). Se a remoção do item não impede sua subsistência direta, enquadra-se como supérfluo.</p>
                 </div>
