@@ -99,11 +99,14 @@ const AppCore = {
         this.btnExemplo.addEventListener("click", () => this.preencherExemplo());
         this.btnLimpar.addEventListener("click", () => this.limparDados());
 
-        // Ações de Relatórios
-        document.getElementById("btnExportPDF").addEventListener("click", () => this.exportarPDF());
-        document.getElementById("btnExportExcel").addEventListener("click", () => this.exportarExcel());
-        document.getElementById("btnPrint").addEventListener("click", () => window.print());
+       // Ações de Relatórios
+        const btnPDF = document.getElementById("btnExportPDF");
+        const btnExcel = document.getElementById("btnExportExcel");
+        const btnPrint = document.getElementById("btnPrint");
 
+        if (btnPDF) btnPDF.addEventListener("click", () => this.exportarPDF());
+        if (btnExcel) btnExcel.addEventListener("click", () => this.exportarExcel());
+        if (btnPrint) btnPrint.addEventListener("click", () => window.print());
         // FAQ Acordeão
         document.querySelectorAll(".faq-question").forEach(btn => {
             btn.addEventListener("click", () => {
